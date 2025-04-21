@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phishing URL Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Phishing URL Detector</h1>
+        <form action="/predict" method="POST">
+            <input type="text" name="url" placeholder="Enter URL here..." required>
+            <button type="submit">Check URL</button>
+        </form>
+
+        {% if data %}
+        <div class="result">
+            <p><strong>URL:</strong> {{ url }}</p>
+            <p><strong>Prediction:</strong> {{ data.prediction_label }}</p>
+            <p><strong>Confidence:</strong> {{ data.prediction_score }}%</p>
+        </div>
+        {% elif url %}
+        <div class="result">
+            <p><strong>You entered:</strong> {{ url }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
