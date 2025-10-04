@@ -1,99 +1,81 @@
+# Phishing URL Detection 
+![image](https://user-images.githubusercontent.com/79131292/144742825-23367f0f-9e67-4c99-ba1f-b86a187675c9.png)
+![image](https://user-images.githubusercontent.com/79131292/144742785-d183f50a-52d6-4296-a43a-90a1ee3502d8.png)
 
-# 🛡️ Phishing URL Detection Web App
-
-This is a Flask-based web application that detects whether a given URL is **phishing** or **legitimate** using a machine learning model built with **PyCaret**.
-
----
-
-## 🚀 Features
-
-- ✅ User-friendly web interface
-- 🔍 Input a URL and get instant prediction (Phishing or Legitimate)
-- ⚙️ Backend powered by a PyCaret-trained machine learning model
-- 🧠 Model uses a transformation pipeline to handle URL features
-
----
-
-## 🧰 Tech Stack
-
-- **Frontend:** HTML, CSS (via Flask templates)
-- **Backend:** Python, Flask
-- **Machine Learning:** PyCaret
-- **Model Loading:** `joblib`
-
----
+## Table of Content
+  * [Introduction](#introduction)
+  * [Installation](#installation)
+  * [Directory Tree](#directory-tree)
+  * [Result](#result)
+  * [Conclusion](#conclusion)
 
 
-## ▶️ How to Run the Project
+## Introduction
 
-### 🔧 1. Install Dependencies
+The Internet has become an indispensable part of our life, However, It also has provided opportunities to anonymously perform malicious activities like Phishing. Phishers try to deceive their victims by social engineering or creating mockup websites to steal information such as account ID, username, password from individuals and organizations. Although many methods have been proposed to detect phishing websites, Phishers have evolved their methods to escape from these detection methods. One of the most successful methods for detecting these malicious activities is Machine Learning. This is because most Phishing attacks have some common characteristics which can be identified by machine learning methods. To see project click [here]("/").
 
-Make sure you have Python 3.7+ installed.
 
+## Installation
+The Code is written in Python 3.6.10. If you don't have Python installed you can find it [here](https://www.python.org/downloads/). If you are using a lower version of Python you can upgrade using the pip package, ensuring you have the latest version of pip. To install the required packages and libraries, run this command in the project directory after [cloning](https://www.howtogeek.com/451360/how-to-clone-a-github-repository/) the repository:
 ```bash
 pip install -r requirements.txt
 ```
 
-### ▶️ 2. Run the Flask App
+## Directory Tree 
+```
+├── pickle
+│   ├── model.pkl
+├── static
+│   ├── styles.css
+├── templates
+│   ├── index.html
+├── README.md
+├── app.py
+├── feature.py
+├── phishing.csv
+├── requirements.txt
 
-```bash
-python app.py
+
 ```
 
-> Output:
-```
-Transformation Pipeline and Model Successfully Loaded
- * Running on http://127.0.0.1:5000/
-```
+## Technologies Used
 
-Open your browser and go to `http://127.0.0.1:5000/`
+![](https://forthebadge.com/images/badges/made-with-python.svg)
 
----
+[<img target="_blank" src="https://upload.wikimedia.org/wikipedia/commons/3/31/NumPy_logo_2020.svg" width=200>](https://numpy.org/doc/) [<img target="_blank" src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg" width=200>](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html)
+[<img target="_blank" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Matplotlib_icon.svg" width=100>](https://matplotlib.org/)
+[<img target="_blank" src="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" width=200>](https://scikit-learn.org/stable/) 
+[<img target="_blank" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScq-xocLctL07Jy0tpR_p9w0Q42_rK1aAkNfW6sm3ucjFKWML39aaJPgdhadyCnEiK7vw&usqp=CAU" width=200>](https://flask.palletsprojects.com/en/2.0.x/) 
 
-## 🌐 Usage
+## Result
 
-1. Enter any URL into the input field.
-2. Click the **Predict** button.
-3. The app will display whether the URL is **Phishing** or **Legitimate** based on the model's output.
+Accuracy of various model used for URL detection
+<br>
 
----
+<br>
 
-## ⚠️ Common Errors
+||ML Model|	Accuracy|  	f1_score|	Recall|	Precision|
+|---|---|---|---|---|---|
+0|	Gradient Boosting Classifier|	0.974|	0.977|	0.994|	0.986|
+1|	CatBoost Classifier|	        0.972|	0.975|	0.994|	0.989|
+2|	XGBoost Classifier| 	        0.969|	0.973|	0.993|	0.984|
+3|	Multi-layer Perceptron|	        0.969|	0.973|	0.995|	0.981|
+4|	Random Forest|	                0.967|	0.971|	0.993|	0.990|
+5|	Support Vector Machine|	        0.964|	0.968|	0.980|	0.965|
+6|	Decision Tree|      	        0.960|	0.964|	0.991|	0.993|
+7|	K-Nearest Neighbors|        	0.956|	0.961|	0.991|	0.989|
+8|	Logistic Regression|        	0.934|	0.941|	0.943|	0.927|
+9|	Naive Bayes Classifier|     	0.605|	0.454|	0.292|	0.997|
 
-### ❌ `KeyError: 'Score'`
+Feature importance for Phishing URL Detection 
+<br><br>
+![image](https://user-images.githubusercontent.com/79131292/144603941-19044aae-7d7b-4e9a-88a8-6adfd8626f77.png)
 
-This means you're trying to access a column that does not exist in the model output. Use `'Label'` instead of `'Score'` if your model returns a binary classification.
 
-Update this line:
 
-```python
-prediction = result['Label'][0]
-```
 
-> Run `pip freeze > requirements.txt` to generate your own.
-
----
-
-## 🧠 Model Training (Optional)
-
-You can train a new model using PyCaret like this:
-
-```python
-from pycaret.classification import *
-clf = setup(data, target='is_phishing')
-best = compare_models()
-save_model(best, 'phishing_model')
-```
-
----
-
-## 📃 License
-
-This project is for educational/demo purposes. Use at your own discretion in production environments.
-
----
-
-## ✨ Author
-
-Created by [Shaik Dadapeer] 👨‍💻  
-Feel free to connect on [LinkedIn](https://www.linkedin.com/in/shaik-dadu-7b5146297/) or [GitHub](https://github.com/dadu000)!
+## Conclusion
+1. The final take away form this project is to explore various machine learning models, perform Exploratory Data Analysis on phishing dataset and understanding their features. 
+2. Creating this notebook helped me to learn a lot about the features affecting the models to detect whether URL is safe or not, also I came to know how to tuned model and how they affect the model performance.
+3. The final conclusion on the Phishing dataset is that the some feature like "HTTTPS", "AnchorURL", "WebsiteTraffic" have more importance to classify URL is phishing URL or not. 
+4. Gradient Boosting Classifier currectly classify URL upto 97.4% respective classes and hence reduces the chance of malicious attachments.
